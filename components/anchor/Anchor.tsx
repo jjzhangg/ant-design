@@ -172,7 +172,9 @@ export default class Anchor extends React.Component<AnchorProps, any> {
 
     const linkSections: Array<Section> = [];
     this.links.forEach(link => {
-      const target = document.getElementById(link.substring(1));
+      const sharpLinkMatch = /#([^#]+)$/.exec(link);
+      if(!sharpLinkMatch) return;
+      const target = document.getElementById(sharpLinkMatch[1]);
       if (target && getOffsetTop(target) < offsetTop + bounds) {
         const top = getOffsetTop(target);
         linkSections.push({
